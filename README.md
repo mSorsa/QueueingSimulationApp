@@ -14,7 +14,7 @@ It primarily draws it's mathematics from Banks et al. (2010) (see ref below).
 
 ### Steady-State parameters in queueing models:
 In short, steady-state parameters is a mathematical-analysis of how a given queueing model (system) actually works. 
-A text-book example question this kind of project answers is: "Assuming 10 customers arrives in a grocery store every hour, how many counters should the store keep open in order to ensure no customer waits in line for more than 2 minutes?"
+A text-book example question this kind of project answers is: "Assuming 10 customers, on average, arrives in a grocery store every hour, how many counters should the store keep open in order to ensure no customer waits in line for more than 2 minutes?"
 
 <hr>
 ## Referenced material
