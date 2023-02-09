@@ -17,6 +17,7 @@ In short, steady-state parameters is a mathematical-analysis of how a given queu
 A text-book example question this kind of project answers is: "Assuming 10 customers, on average, arrives in a grocery store every hour, how many counters should the store keep open in order to ensure no customer waits in line for more than 2 minutes?"
 
 <hr>
+
 ## Referenced material
 
 >Banks, J., Carson II, J. S., Nelson, B. L. & Nicol, D. M. (2010). Queueing Models in Discrete-Event System Simulation. Pearson Education inc., 5th edition. pp. 254 & 261.
