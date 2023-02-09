@@ -18,4 +18,5 @@ A text-book example question this kind of project answers is: "Assuming 10 custo
 
 <hr>
 ## Referenced material
+
 >Banks, J., Carson II, J. S., Nelson, B. L. & Nicol, D. M. (2010). Queueing Models in Discrete-Event System Simulation. Pearson Education inc., 5th edition. pp. 254 & 261.
