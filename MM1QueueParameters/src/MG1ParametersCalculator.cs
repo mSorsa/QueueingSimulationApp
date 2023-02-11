@@ -18,9 +18,6 @@
             return L + rho;
         } 
 
-
-
-
         private static double GetMG1StandardBottom(double rho)
             => 2 * (1 - rho);
 
