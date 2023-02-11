@@ -6,8 +6,8 @@ namespace MMCQueueParameters.src
     {
         private readonly FactorialCalculator _factorializer;
 
-        public MMCParametersCalculator(FactorialCalculator factorialCalculator)
-        { _factorializer = factorialCalculator; }
+        public MMCParametersCalculator(FactorialCalculator? factorialCalculator)
+        { _factorializer = factorialCalculator ?? new(); }
 
 
         public double CalculateL(double lambda, double mu, int c)

@@ -5,8 +5,8 @@ namespace MGInfinityQueueParameters.src
     public class MGInfinityParametersCalculator
     {
         private readonly ExpectedValueCalculator _ev;
-        public MGInfinityParametersCalculator(ExpectedValueCalculator evc)
-        { _ev = evc; }
+        public MGInfinityParametersCalculator(ExpectedValueCalculator? evc)
+        { _ev = evc ?? new(); }
 
 
         public double CalculateL(double lambda, double[] mu)
