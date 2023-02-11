@@ -19,6 +19,7 @@ namespace TestQueueingModels
 
         
         
+        // W
         [Theory]
         [InlineData(2.0, 4.0, 1.0, 2.375)]
         [InlineData(6.0, 8.0, 1.0, 12.313)]
@@ -33,8 +34,6 @@ namespace TestQueueingModels
             // Assert
             Assert.Equal(expected:expectedResult, actual:result, precision:3);
         }
-
-
         
         // P0
         [Theory]
@@ -44,8 +43,10 @@ namespace TestQueueingModels
         public void CalculatePZero_ValidInput_ReturnsExpectedResult(double lam, 
             double mu, double expected)
         {
+            // Act
             var result = _mg1.CalculatePZero(lam, mu);
 
+            //Assert
             Assert.Equal(expected:expected, actual:result, precision:2);
         }
 
