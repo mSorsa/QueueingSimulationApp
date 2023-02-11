@@ -1,5 +1,4 @@
 ﻿using MathematicalHelper;
-using Newtonsoft.Json.Linq;
 
 namespace TestMathHelper
 {

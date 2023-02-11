@@ -14,7 +14,7 @@
         /// <exception cref="ArgumentException">Thrown when lambda is greater than mu</exception>
         /// <returns></returns>
         double CalculateL(double lambda, double mu, double sigma = 0);
-        
+
         /// <summary>
         /// Calculates the average time spent in the system.
         /// </summary>
@@ -40,7 +40,7 @@
         /// <param name="mu">Service rate</param>
         /// <returns>Mean customer time in system</returns>
         double CalculateW(double lambda, double mu, double sigma = 0);
-        
+
         /// <summary>
         /// Calculates the mean time a customer is in the queue.
         /// </summary>

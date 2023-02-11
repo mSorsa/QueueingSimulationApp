@@ -16,7 +16,7 @@
             double L = top / bottom;
 
             return L + rho;
-        } 
+        }
 
         private static double GetMG1StandardBottom(double rho)
             => 2 * (1 - rho);
@@ -49,7 +49,7 @@
         {
             if (mu * mu + sigma == 0)
                 throw new DivideByZeroException($"Calculating bottom part of parenthesis with values mu = {mu}, and sigma = {sigma} results in division by 0.");
-            
+
             return (1 / (mu * mu) + (sigma));
         }
 
