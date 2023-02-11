@@ -3,25 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueingSimulation", "QueueingSimulation\QueueingSimulation.csproj", "{BFA75279-CE49-4228-8717-FDB8F0DE0026}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueueingSimulation", "QueueingSimulation\QueueingSimulation.csproj", "{BFA75279-CE49-4228-8717-FDB8F0DE0026}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMCKKQueueParameters", "MMCKKQueueParameters\MMCKKQueueParameters.csproj", "{38EAABEE-EB82-44B2-9B1E-3249471355BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMCKKQueueParameters", "MMCKKQueueParameters\MMCKKQueueParameters.csproj", "{38EAABEE-EB82-44B2-9B1E-3249471355BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMCNQueueParameters", "MMCNQueueParameters\MMCNQueueParameters.csproj", "{8BF59664-F746-42D6-9D6B-3DDD61AB90C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMCNQueueParameters", "MMCNQueueParameters\MMCNQueueParameters.csproj", "{8BF59664-F746-42D6-9D6B-3DDD61AB90C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGInfinityQueueParameters", "MGInfinityQueueParameters\MGInfinityQueueParameters.csproj", "{0909C9F6-F424-4B0A-8B06-10FD34A54FCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MGInfinityQueueParameters", "MGInfinityQueueParameters\MGInfinityQueueParameters.csproj", "{0909C9F6-F424-4B0A-8B06-10FD34A54FCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMCQueueParameters", "MMCQueueParameters\MMCQueueParameters.csproj", "{FFD48F50-A307-416F-9914-7E486CD982AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMCQueueParameters", "MMCQueueParameters\MMCQueueParameters.csproj", "{FFD48F50-A307-416F-9914-7E486CD982AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MM1QueueParameters", "MM1QueueParameters\MM1QueueParameters.csproj", "{7FD259C3-4FC8-44C6-8D68-E0273ADEA652}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MG1QueueParameters", "MM1QueueParameters\MG1QueueParameters.csproj", "{7FD259C3-4FC8-44C6-8D68-E0273ADEA652}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueingModelsInterfaces", "QueueingModelsInterfaces\QueueingModelsInterfaces.csproj", "{C101A5AB-C1DA-480E-A82A-6B8B21EF0808}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueueingModelsInterfaces", "QueueingModelsInterfaces\QueueingModelsInterfaces.csproj", "{C101A5AB-C1DA-480E-A82A-6B8B21EF0808}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathematicalHelper", "MathematicalHelper\MathematicalHelper.csproj", "{3543AF0F-5918-4C90-9071-36F7DCD32B0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathematicalHelper", "MathematicalHelper\MathematicalHelper.csproj", "{3543AF0F-5918-4C90-9071-36F7DCD32B0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMathHelper", "TestMathHelper\TestMathHelper.csproj", "{7E802E47-AD76-4421-BF69-E008437794E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMathHelper", "TestMathHelper\TestMathHelper.csproj", "{7E802E47-AD76-4421-BF69-E008437794E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestQueueingModels", "TestQueueingModels\TestQueueingModels.csproj", "{7DF595D2-0AAD-4244-93C0-1F320120B020}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestQueueingModels", "TestQueueingModels\TestQueueingModels.csproj", "{7DF595D2-0AAD-4244-93C0-1F320120B020}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
