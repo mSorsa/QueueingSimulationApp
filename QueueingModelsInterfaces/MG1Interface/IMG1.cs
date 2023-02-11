@@ -21,7 +21,7 @@
         /// <param name="lambda">Arrival rate</param>
         /// <param name="mu">Service rate</param>
         /// <returns></returns>
-        double CalculateLq(double lambda, double mu);
+        double CalculateLq(double lambda, double mu, double sigma = 0);
 
         /// <summary>
         /// 
@@ -31,6 +31,7 @@
         /// <returns>The probability of n customers in system.</returns>
         /// <exception cref="ArgumentException">Mu must be greater than 0.</exception>
         /// <exception cref="ArgumentException">Lambda must be greater than 0.</exception>
+        /// <exception cref="DivideByZeroException">Thrown when mu is 0</exception>
         double CalculatePZero(double lambda, double mu);
 
         /// <summary>
@@ -39,6 +40,8 @@
         /// <param name="lambda">Arrival rate</param>
         /// <param name="mu">Service rate</param>
         /// <returns>Mean customer time in system</returns>
+        /// <exception cref="ArgumentException">Thrown when lambda is greater than mu</exception>
+        /// <exception cref="DivideByZeroException">Thrown when mu is 0</exception>
         double CalculateW(double lambda, double mu, double sigma = 0);
 
         /// <summary>
@@ -47,7 +50,7 @@
         /// <param name="lambda">Arrival rate</param>
         /// <param name="mu">service rate</param>
         /// <returns>Mean customer time in queue</returns>
-        double CalculateWq(double lambda, double mu);
+        double CalculateWq(double lambda, double mu, double sigma = 0);
 
 
         /// <summary>
