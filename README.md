@@ -1,6 +1,6 @@
 # QueueingModelsSimulators
 >### Notice: This solution is based on Steady-state parameters!
->### Notice2: PROJECT IS UNFINISHED. TESTS ARE NOT PASSING YET.
+>### Notice2: PROJECT IS UNFINISHED.
 <hr>
 
 ## Author:
