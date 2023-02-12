@@ -23,7 +23,7 @@ namespace TestQueueingModels
         [Theory]
         [InlineData(11, 13, 5, 0.847)]
         [InlineData(5, 3, 2, 5.455)]
-        [InlineData(3.266, 1.280, 10, 4.006)]
+        [InlineData(3.266, 1.280, 10, 2.552)]
         public void CalculateL_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, double expected)
         {
             // Act
