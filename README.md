@@ -10,7 +10,7 @@
 
 ## Project Purpose
 The purpose of this project is to provide a library of steady-state parameters calculations. <br>
-It primarily draws it's mathematics from Banks et al. (2010) (see ref below). 
+It primarily draws its mathematics from Banks et al. (2010) (see ref below). 
 
 ### Steady-State parameters in queueing models:
 The short - but not so accurate description of what steady-state parameters is, is that it is a mathematical-analysis of how a given queueing model (system) actually works. 
