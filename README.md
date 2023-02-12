@@ -1,6 +1,6 @@
 # QueueingModelsSimulators
 >### Notice: This solution is based on Steady-state parameters!
->### Notice2: PROJECT IS UNFINISHED.
+>### Notice2: PROJECT IS WIP.
 <hr>
 
 ## Author:
