@@ -2,10 +2,12 @@
 {
     public interface IMMCKK
     {
-        double CalculateL(double lambda, double mu, int c, int K);
-        double CalculateLq(double lambda, double mu, int c, int K);
-        double CalculatePn(double lambda, double mu, int c, int n, int K);
-        double CalculateW(double lambda, double mu, int c, int K);
-        double CalculateWq(double lambda, double mu, int c, int K);
+        double CalculatePZero(double lam, double mu, int c, int K);
+
+        // ?????? What is that formula after P0 ????????
+        
+        double CalculateL(double lam, double mu, int c, int K);
+        double CalculatePn(double lam, double mu, int c, int K, int n);
+        
     }
 }

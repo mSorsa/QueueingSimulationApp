@@ -2,10 +2,12 @@
 {
     public interface IMMC
     {
-        double CalculateL(double lambda, double mu, int c);
-        double CalculateLq(double lambda, double mu, int c);
-        double CalculatePn(int n, double lambda, double mu, int c);
-        double CalculateW(double lambda, double mu, int c);
-        double CalculateWq(double lambda, double mu, int c);
+        double CalculateRho(double lam, double mu, int c);
+        double CalculatePZero(double lam, double mu, int c);
+        double CalculateW(double lam, double L);
+        double CalculateWq(double lam, double mu, int c);
+        double CalculateL(double lam, double mu, int c);
+        double CalculateLq(double lam, double Wq);
+        double CalculateLminusLq(double c, double rho);
     }
 }
