@@ -2,23 +2,57 @@
 
 namespace MGInfinityQueueParameters.src
 {
-    public class MGInfinityParametersCalculator
+    public class MGInfinityParametersCalculator : IMGInfinity
     {
-        private readonly ExpectedValueCalculator _ev;
-        public MGInfinityParametersCalculator(ExpectedValueCalculator? evc)
-        { _ev = evc ?? new(); }
+        private readonly FactorialCalculator _calculator;
+
+        public MGInfinityParametersCalculator(FactorialCalculator? factorialCalculator)
+            { _calculator = factorialCalculator ?? new(); }
 
 
-        public double CalculateL(double lambda, double[] mu)
-            => lambda / (_ev.CalculateExpectedValue(mu) - lambda);
+        public double CalculatePZero(double lambda, double mu)
+        {
+            muCheck(mu);
+            return Math.Pow(Math.E, (-lambda / mu));
+        }
+        
+        private static void muCheck(double mu)
+        {
+            if(mu == 0) 
+                throw new DivideByZeroException("When calculating, if mu is 0 it causes division by 0.");
+        }
+        
+        public double CalculateW(double mu)
+        {
+            muCheck(mu);
+            
+            return 1 / mu;
+        }
 
-        public double CalculateW(double lambda, double[] mu)
-            => 1 / (_ev.CalculateExpectedValue(mu) - lambda);
+        public double CalculateWq()
+            => 0;
 
-        public double CalculateWq(double lambda, double[] mu)
-            => lambda / (_ev.CalculateExpectedValue(mu) * (_ev.CalculateExpectedValue(mu) - lambda));
+        public double CalculateL(double lambda, double mu)
+        {
+            muCheck(mu);
 
-        public double CalculateLq(double lambda, double[] mu)
-            => lambda * lambda / (_ev.CalculateExpectedValue(mu) * (_ev.CalculateExpectedValue(mu) - lambda));
+            return lambda / mu;
+        }
+
+        public double CalculateLq()
+            => 0;
+
+        public double CalculatePn(double lambda, double mu, int n)
+        {
+            if (n < 0)
+                throw new ArgumentException("n cannot be less than 0 as it causes in factorial of negative numbers.");
+
+            muCheck(mu);
+
+            double top = Math.Pow(Math.E, -lambda / mu) * Math.Pow(lambda / mu, n);
+            double bottom = _calculator.Factorial(n);
+
+            return top / bottom;
+        }
     }
 }
