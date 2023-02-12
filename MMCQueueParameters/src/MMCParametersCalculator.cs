@@ -9,28 +9,48 @@ namespace MMCQueueParameters.src
         public MMCParametersCalculator(FactorialCalculator? factorialCalculator)
         { _factorializer = factorialCalculator ?? new(); }
 
+        public double CalculateRho(double lam, double mu, int c)
+            => lam / (c * mu);
 
-        public double CalculateL(double lambda, double mu, int c)
-            => lambda / (mu - lambda / c);
+        public double CalculateW(double lam, double L)
+            => L / lam;
 
-        public double CalculateW(double lambda, double mu, int c)
-            => 1 / (mu - lambda / c);
+        public double CalculateLq(double lam, double Wq)
+            => lam * Wq;
 
-        public double CalculateWq(double lambda, double mu, int c)
-            => lambda / (mu * (mu - lambda / c));
+        public double CalculateLminusLq(double c, double rho)
+            => c * rho;
 
-        public double CalculateLq(double lambda, double mu, int c)
-            => lambda * lambda / (mu * (mu - lambda / c));
-
-        public double CalculatePn(int n, double lambda, double mu, int c)
+        public double CalculatePZero(double lam, double mu, int c)
         {
-            double rho = lambda / (mu * c);
-            double result = 0;
+            double firstHalf = 0.0;
+            double rho = CalculateRho(lam, mu, c);
 
-            for (int k = 0; k <= n; k++)
-                result += Math.Pow(rho, k) / _factorializer.Factorial(k) * Math.Pow(c, n - k) / _factorializer.Factorial(n - k);
+            for (int n = 0; n < c; n++)
+            {
+                firstHalf += Math.Pow(c * rho, n) / _factorializer.Factorial(n);
+            }
 
-            return Math.Pow(rho, n) * result;
+            double p1 = Math.Pow(c * rho, c);
+            double p2 = 1.0 / _factorializer.Factorial(c);
+            double p3 = (1 / (1 - rho));
+            
+            double secondHalf = p1 * p2 * p3;
+            
+            double sum = firstHalf + secondHalf;
+            return Math.Pow(sum, -1);
         }
+
+        public double CalculateL(double lam, double mu, int c)
+        {
+            double rho = CalculateRho(lam, mu, c);
+            double top = Math.Pow((rho * c), c + 1) * CalculatePZero(lam, mu, c);
+            double bottom = c * _factorializer.Factorial(c) * (Math.Pow(1 - rho, 2));
+
+            return (top / bottom) + (c * rho);
+        }
+
+        public double CalculateWq(double lam, double mu, int c)
+            => CalculateW(lam, CalculateL(lam, mu, c)) - (1 / mu);
     }
 }

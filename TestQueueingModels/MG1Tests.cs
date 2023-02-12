@@ -4,9 +4,9 @@ namespace TestQueueingModels
 {
     public class MG1Tests
     {
-        private readonly IMG1 _mg1 = new MG1ParametersCalculator();
+        private static readonly IMG1 _mg1 = new MG1ParametersCalculator();
 
-        // L
+        // CalculateL
         [Theory]
         [InlineData(0.5, 0.6, 1.0, 3.667)]
         [InlineData(4.0, 7.0, 2.36, 45.006)]
