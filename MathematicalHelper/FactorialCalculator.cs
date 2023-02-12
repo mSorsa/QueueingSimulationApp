@@ -37,7 +37,7 @@
             /// Number validation.
             /// </summary>
             /// <param name="num">Number to validate.</param>
-            /// <exception cref="ArgumentException">num is negative.</exception>
+            /// <exception cref="InvalidDataException">num is negative.</exception>
             /// <exception cref="OverflowException">num cannot be held in datatype int.</exception>
             public void validateNumber(int num)
             {
