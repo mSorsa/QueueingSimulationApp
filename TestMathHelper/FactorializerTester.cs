@@ -38,7 +38,7 @@ namespace TestMathHelper
         [InlineData(-10)]
         [InlineData(-1000)]
         public void FactorialTests_Invalid(int num)
-            => Assert.Throws<ArgumentException>(() => factorialize.Factorial(num));
+            => Assert.Throws<InvalidDataException>(() => factorialize.Factorial(num));
 
         [Theory]
         [InlineData(13)]

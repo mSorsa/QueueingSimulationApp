@@ -43,7 +43,7 @@
             {
                 if (num < 0)
                     // Cannot factorialize negative numbers. 
-                    throw new ArgumentException("Cannot factorialize negative numbers!");
+                    throw new InvalidDataException("Cannot factorialize negative numbers!");
 
                 if (num > 12)
                     // Number grows too big, int cannot hold.
