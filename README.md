@@ -20,4 +20,4 @@ A text-book example question this kind of project answers is: "Assuming 10 custo
 
 ## Referenced material
 
->[Banks, J., Carson II, J. S., Nelson, B. L. & Nicol, D. M. (2010). Queueing Models in Discrete-Event System Simulation. Pearson Education inc., 5th edition.](https://github.com/mSorsa/QueueingModelsSimulators/blob/master/M1%20%5BLecture%5D%20Queueing%20Models%20-%20Reading.pdf) pp. 254 & 261.
+>[Banks, J., Carson II, J. S., Nelson, B. L. & Nicol, D. M. (2010). Queueing Models in Discrete-Event System Simulation. Pearson Education inc., 5th edition.](https://github.com/mSorsa/QueueingModelsSimulators/blob/master/M1%20%5BLecture%5D%20Queueing%20Models%20-%20Reading.pdf) pp. 248, 250, 254, 257, 258, 261.
