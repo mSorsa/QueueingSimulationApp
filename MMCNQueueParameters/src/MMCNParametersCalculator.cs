@@ -25,12 +25,10 @@ namespace MMCNQueueParameters
 
         public double CalculateLq(double lam, double mu, int c, int N)
         {
-            double sum = 0.0;
             double rho = CalculateServerUtilization(lam, mu, c, N);
-
-
-            sum = CalculatePZero(lam, mu, c, N) * CalculateA(lam, mu) * rho;
-            sum = sum / (_factorailizer.Factorial(c) * Math.Pow(1 - rho, 2));
+            double sum = CalculatePZero(lam, mu, c, N) * CalculateA(lam, mu) * rho;
+            
+            sum /= (_factorailizer.Factorial(c) * Math.Pow(1 - rho, 2));
 
             double bracket = 1 - Math.Pow(rho, N - c) - (N - c) * Math.Pow(rho, N - c) * (1 - rho);
 
@@ -38,7 +36,7 @@ namespace MMCNQueueParameters
         }
 
         private double CalculateA(double lam, double mu)
-            => Math.Round(lam / mu, 4);
+            => Math.Round(lam / mu, 5);
 
         public double CalculateLq(double a, int c, int N, double rho, double pZero)
         {
@@ -65,12 +63,7 @@ namespace MMCNQueueParameters
             double a = CalculateA(lam, mu);
 
             for (int n = 1; n <= c; n++)
-            {
-                double tmp = Math.Pow(a, n) / _factorailizer.Factorial(n);
-                sum += tmp;
-                tmp = Math.Pow(a, c) / _factorailizer.Factorial(c);
-                sum += tmp;
-            }
+                sum += (Math.Pow(a, n) / _factorailizer.Factorial(n)) + (Math.Pow(a, c) / _factorailizer.Factorial(c);
 
             double rho = CalculateRho(lam, mu, c);
 
@@ -97,7 +90,7 @@ namespace MMCNQueueParameters
         }
 
         private double CalculateRho(double lam, double mu, int c)
-            => Math.Round(lam / (c * mu), 4);
+            => Math.Round(lam / (c * mu), 5);
 
 
         public double CalculateServerUtilization(double lam, double mu, int c, int N)
