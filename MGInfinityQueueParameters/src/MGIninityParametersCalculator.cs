@@ -1,4 +1,5 @@
 ﻿using MathematicalHelper;
+using QueueingModelsInterfaces.MGInfinityInterface;
 
 namespace MGInfinityQueueParameters.src
 {
@@ -7,7 +8,7 @@ namespace MGInfinityQueueParameters.src
         private readonly FactorialCalculator _calculator;
 
         public MGInfinityParametersCalculator(FactorialCalculator? factorialCalculator)
-            { _calculator = factorialCalculator ?? new(); }
+        { this._calculator = factorialCalculator ?? new(); }
 
 
         public double CalculatePZero(double lambda, double mu)
@@ -15,17 +16,17 @@ namespace MGInfinityQueueParameters.src
             muCheck(mu);
             return Math.Pow(Math.E, (-lambda / mu));
         }
-        
+
         private static void muCheck(double mu)
         {
-            if(mu == 0) 
+            if (mu == 0)
                 throw new DivideByZeroException("When calculating, if mu is 0 it causes division by 0.");
         }
-        
+
         public double CalculateW(double mu)
         {
             muCheck(mu);
-            
+
             return 1 / mu;
         }
 
@@ -49,8 +50,8 @@ namespace MGInfinityQueueParameters.src
 
             muCheck(mu);
 
-            double top = Math.Pow(Math.E, -lambda / mu) * Math.Pow(lambda / mu, n);
-            double bottom = _calculator.Factorial(n);
+            var top = Math.Pow(Math.E, -lambda / mu) * Math.Pow(lambda / mu, n);
+            double bottom = this._calculator.Factorial(n);
 
             return top / bottom;
         }

@@ -1,4 +1,6 @@
-﻿namespace MM1QueueParameters
+﻿using QueueingModelsInterfaces.MG1Interface;
+
+namespace MG1QueueParameters.src
 {
     public class MG1ParametersCalculator : IMG1
     {
@@ -21,8 +23,8 @@
 
             double rho = CalculateRho(lambda, mu);
 
-            double L = rho + (lambda * lambda) 
-                * GetMG1StandardTop(mu, sigma) 
+            double L = rho + lambda * lambda
+                * GetMG1StandardTop(mu, sigma)
                 / GetMG1StandardBottom(rho);
 
             return L;
@@ -32,7 +34,7 @@
         {
             if (rho is 1)
                 throw new ArgumentException("Rho cannot be 1. Division by zero when calculating MG1 parameter.");
-            
+
             return 2 * (1 - rho);
         }
 
@@ -43,7 +45,7 @@
 
             double musqrd = Math.Pow(mu, 2);
 
-            return (1 / musqrd) + sigma;
+            return 1 / musqrd + sigma;
         }
 
         // W
@@ -51,15 +53,15 @@
         {
             if (mu is 0)
                 throw new DivideByZeroException("Service rate [mu] cannot be zero when calculating W.");
-            if(lambda >= mu)
+            if (lambda >= mu)
                 throw new ArgumentException("Arrival rate [lambda] must be less than Service rate [mu].");
-            
+
             double first = 1 / mu;
 
             double topparen = CalculateStandardTopParenthesis(mu, sigma);
             double bottomparen = GetDivisionBottom(CalculateRho(lambda, mu));
 
-            double W = first + Math.Round((lambda * topparen / bottomparen), 3);
+            double W = first + Math.Round(lambda * topparen / bottomparen, 3);
 
             return W;
         }
@@ -68,7 +70,7 @@
         {
             if (rho is 1)
                 throw new ArgumentException("Rho cannot be 1. Division by zero when calculating MG1 parameter.");
-            
+
             return 2 * (1 - rho);
         }
 
@@ -85,12 +87,12 @@
             double topparen = CalculateStandardTopParenthesis(mu, sigma);
             double bottomparen = GetDivisionBottom(CalculateRho(lambda, mu));
 
-            return Math.Round((lambda * topparen / bottomparen), 3);
+            return Math.Round(lambda * topparen / bottomparen, 3);
         }
 
         public double CalculateLq(double lambda, double mu, double sigma = 0)
         {
-            double top = (lambda * lambda) * CalculateStandardTopParenthesis(mu, sigma);
+            double top = lambda * lambda * CalculateStandardTopParenthesis(mu, sigma);
 
             return top / GetDivisionBottom(CalculateRho(lambda, mu));
         }

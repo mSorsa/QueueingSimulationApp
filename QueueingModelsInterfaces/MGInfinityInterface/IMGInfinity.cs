@@ -1,4 +1,4 @@
-﻿namespace MGInfinityQueueParameters.src
+﻿namespace QueueingModelsInterfaces.MGInfinityInterface
 {
     public interface IMGInfinity
     {

@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace MMCNQueueParameters
+﻿namespace QueueingModelsInterfaces.MMCNInterface
 {
     public interface IMMCN
     {

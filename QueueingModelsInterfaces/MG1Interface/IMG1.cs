@@ -1,4 +1,4 @@
-﻿namespace MM1QueueParameters
+﻿namespace QueueingModelsInterfaces.MG1Interface
 {
     /// <summary>
     /// Interface for MM1 queueing model

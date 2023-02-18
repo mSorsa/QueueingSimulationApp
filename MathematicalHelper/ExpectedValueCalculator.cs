@@ -11,7 +11,7 @@
 
             double result = 0;
 
-            for (int i = 0; i < values.Length; i++)
+            for (var i = 0; i < values.Length; i++)
                 result += values[i];
 
             return result / values.Length;

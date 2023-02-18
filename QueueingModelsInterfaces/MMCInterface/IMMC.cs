@@ -1,4 +1,4 @@
-﻿namespace MMCQueueParameters.src
+﻿namespace QueueingModelsInterfaces.MMCInterface
 {
     public interface IMMC
     {

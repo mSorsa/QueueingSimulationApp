@@ -1,4 +1,5 @@
-﻿using MMCNQueueParameters;
+﻿using MMCNQueueParameters.src;
+using QueueingModelsInterfaces.MMCNInterface;
 
 namespace TestQueueingModels
 {
@@ -17,7 +18,7 @@ namespace TestQueueingModels
         public void CalculateRho_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int n, double expected)
         {
             // Act
-            var actual = _mmcn.CalculateServerUtilization(lam, mu, c, n);
+            var actual = this._mmcn.CalculateServerUtilization(lam, mu, c, n);
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -31,7 +32,7 @@ namespace TestQueueingModels
         public void CalculateL_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int n, double expected)
         {
             // Act
-            var actual = _mmcn.CalculateL(lam, mu, c, n);
+            var actual = this._mmcn.CalculateL(lam, mu, c, n);
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -45,7 +46,7 @@ namespace TestQueueingModels
         public void CalculateW_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int n, double expected)
         {
             // Act
-            var actual = _mmcn.CalculateW(lam, mu, c, n);
+            var actual = this._mmcn.CalculateW(lam, mu, c, n);
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -59,7 +60,7 @@ namespace TestQueueingModels
         public void CalculateWq_ValidInputs_ReturnsCorrectResults(double lam, double mu, int c, int n, double expected)
         {
             // Act
-            var actual = _mmcn.CalculateWq(lam, mu, c, n);
+            var actual = this._mmcn.CalculateWq(lam, mu, c, n);
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -73,7 +74,7 @@ namespace TestQueueingModels
         public void CalculateLq_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int n, double expected)
         {
             // Act
-            var actual = _mmcn.CalculateLq(lam, mu, c, n);
+            var actual = this._mmcn.CalculateLq(lam, mu, c, n);
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -88,7 +89,7 @@ namespace TestQueueingModels
         public void CalculateP0_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int n, double expected)
         {
             // Act
-            var actual = _mmcn.CalculatePZero(lam, mu, c, n);
+            var actual = this._mmcn.CalculatePZero(lam, mu, c, n);
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -102,7 +103,7 @@ namespace TestQueueingModels
         public void CalculatePn_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int n, double expected)
         {
             // Act
-            var actual = _mmcn.CalculatePn(lam, mu, c, n);
+            var actual = this._mmcn.CalculatePn(lam, mu, c, n);
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -116,7 +117,7 @@ namespace TestQueueingModels
         public void CalculateLambdaE_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int n, double expected)
         {
             // Act
-            var actual = _mmcn.CalculateLambdaE(lam, mu, c, n);
+            var actual = this._mmcn.CalculateLambdaE(lam, mu, c, n);
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }

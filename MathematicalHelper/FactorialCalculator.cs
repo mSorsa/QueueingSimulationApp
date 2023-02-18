@@ -5,8 +5,8 @@
         private readonly factHelper helper;
 
         // ctor
-        public FactorialCalculator() { helper = new(); }
-
+        public FactorialCalculator() 
+            => this.helper = new(); 
 
         /// <summary>
         /// Calculates the factorial of a number.
@@ -18,10 +18,10 @@
         public int Factorial(int number)
         {
             // Verify number can be factorialized ( 0 <= number <= 12 )
-            helper.validateNumber(number);
+            this.helper.validateNumber(number);
 
             // 0! = 1 by definition. Assume number is at least 0 since validateNumber().
-            int fact = 1;
+            var fact = 1;
 
             // i.e.: 5! = 5 * 4 * 3 * 2 * 1 = 120.
             while (number > 0)
@@ -29,7 +29,6 @@
 
             return fact;
         }
-
 
         private class factHelper
         {

@@ -1,12 +1,13 @@
 ﻿using MathematicalHelper;
 using MMCQueueParameters.src;
+using QueueingModelsInterfaces.MMCInterface;
 
 namespace TestQueueingModels
 {
     public class MMCTests
     {
         private static readonly IMMC _mmc = new MMCParametersCalculator(new FactorialCalculator());
-        
+
         [Theory]
         [InlineData(1.0, 2.0, 3, 0.167)]
         [InlineData(2.468, 3.211, 2, 0.384)]
@@ -42,6 +43,5 @@ namespace TestQueueingModels
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
-
     }
 }

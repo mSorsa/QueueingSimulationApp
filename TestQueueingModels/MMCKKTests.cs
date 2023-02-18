@@ -1,5 +1,6 @@
 ﻿using MathematicalHelper;
 using MMCKKQueueParameters.src;
+using QueueingModelsInterfaces.MMCKKInterface;
 
 namespace TestQueueingModels
 {
@@ -41,7 +42,7 @@ namespace TestQueueingModels
             // Act
             var actual = _mmckk.CalculateL(lam, mu, c, K);
             // Assert
-            Assert.Equal(expected: expected, actual: actual, precision: 3); 
+            Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
 
 
@@ -87,7 +88,7 @@ namespace TestQueueingModels
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
-        
+
         [Theory]
         [InlineData(0.673, 1.263, 2, 12, 3.269)]    // Same inputs as original CalcW, since the results should be the same.
         [InlineData(0.250, 0.335, 2, 8, 8.049)]

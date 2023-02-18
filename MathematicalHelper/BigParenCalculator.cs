@@ -4,8 +4,8 @@
     {
         private readonly FactorialCalculator _factorializer;
 
-        public BigParenCalculator(FactorialCalculator factorializer)
-        { _factorializer = factorializer; }
+        public BigParenCalculator(FactorialCalculator factorializer) 
+            => this._factorializer = factorializer;
 
         /// <summary>
         /// Calculates the awkward "big parenthesis".
@@ -20,9 +20,9 @@
             if (n < 0 || x < 0)
                 throw new ArgumentException($"n and x must be positive integers. Inputted values were: x = {x}, and n = {n}.");
 
-            return _factorializer.Factorial(n) 
-                / (_factorializer.Factorial(x) * ( (double) _factorializer.Factorial(n - x)) );
-            
+            return this._factorializer.Factorial(n)
+                / (this._factorializer.Factorial(x) * ((double)this._factorializer.Factorial(n - x)));
+
         }
     }
 }

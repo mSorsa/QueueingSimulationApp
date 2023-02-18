@@ -1,4 +1,4 @@
-﻿namespace MMCKKQueueParameters.src
+﻿namespace QueueingModelsInterfaces.MMCKKInterface
 {
     public interface IMMCKK
     {
