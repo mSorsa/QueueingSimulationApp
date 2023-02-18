@@ -63,7 +63,7 @@ namespace MMCNQueueParameters
             double a = CalculateA(lam, mu);
 
             for (int n = 1; n <= c; n++)
-                sum += (Math.Pow(a, n) / _factorailizer.Factorial(n)) + (Math.Pow(a, c) / _factorailizer.Factorial(c);
+                sum += (Math.Pow(a, n) / _factorailizer.Factorial(n)) + (Math.Pow(a, c) / _factorailizer.Factorial(c));
 
             double rho = CalculateRho(lam, mu, c);
 
