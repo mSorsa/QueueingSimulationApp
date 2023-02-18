@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MM1QueueParameters
+﻿namespace MM1QueueParameters
 {
     public class MG1ParametersCalculator : IMG1
     {
@@ -76,24 +74,19 @@ namespace MM1QueueParameters
 
         private static double CalculateStandardTopParenthesis(double mu, double sigma)
         {
-            if (mu * mu + sigma == 0)
+            if (mu == 0)
                 throw new DivideByZeroException($"Calculating bottom part of parenthesis with values mu = {mu}, and sigma = {sigma} results in division by 0.");
 
-            return (1 / (mu * mu) + (sigma));
+            return 1 / (mu * mu) + sigma;
         }
-
-
 
         public double CalculateWq(double lambda, double mu, double sigma)
         {
             double topparen = CalculateStandardTopParenthesis(mu, sigma);
             double bottomparen = GetDivisionBottom(CalculateRho(lambda, mu));
 
-            double W = Math.Round((lambda * topparen / bottomparen), 3);
-
-            return W;
+            return Math.Round((lambda * topparen / bottomparen), 3);
         }
-
 
         public double CalculateLq(double lambda, double mu, double sigma = 0)
         {
@@ -101,8 +94,6 @@ namespace MM1QueueParameters
 
             return top / GetDivisionBottom(CalculateRho(lambda, mu));
         }
-
-
 
         public double CalculatePZero(double lambda, double mu)
         {
@@ -115,6 +106,5 @@ namespace MM1QueueParameters
 
             return 1 - CalculateRho(lambda, mu);
         }
-
     }
 }
