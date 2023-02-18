@@ -25,8 +25,20 @@ namespace MMCNQueueParameters
 
         public double CalculateLq(double lam, double mu, int c, int N)
         {
-            throw new NotImplementedException();
+            double sum = 0.0;
+            double rho = CalculateServerUtilization(lam, mu, c, N);
+
+
+            sum = CalculatePZero(lam, mu, c, N) * CalculateA(lam, mu) * rho;
+            sum = sum / (_factorailizer.Factorial(c) * Math.Pow(1 - rho, 2));
+
+            double bracket = 1 - Math.Pow(rho, N - c) - (N - c) * Math.Pow(rho, N - c) * (1 - rho);
+
+            return sum * bracket;
         }
+
+        private double CalculateA(double lam, double mu)
+            => Math.Round(lam / mu, 4);
 
         public double CalculateLq(double a, int c, int N, double rho, double pZero)
         {
@@ -35,7 +47,11 @@ namespace MMCNQueueParameters
 
         public double CalculatePn(double lam, double mu, int c, int N)
         {
-            throw new NotImplementedException();
+            double sum = Math.Pow(CalculateA(lam, mu), N);
+            sum /= (_factorailizer.Factorial(c) * Math.Pow(c, N - c));
+            sum *= CalculatePZero(lam, mu, c, N);
+
+            return sum;
         }
 
         public double CalculatePn(double a, int c, double pZero)
@@ -45,7 +61,26 @@ namespace MMCNQueueParameters
 
         public double CalculatePZero(double lam, double mu, int c, int N)
         {
-            throw new NotImplementedException();
+            double sum = 0.0;
+            double a = CalculateA(lam, mu);
+
+            for (int n = 1; n <= c; n++)
+            {
+                double tmp = Math.Pow(a, n) / _factorailizer.Factorial(n);
+                sum += tmp;
+                tmp = Math.Pow(a, c) / _factorailizer.Factorial(c);
+                sum += tmp;
+            }
+
+            double rho = CalculateRho(lam, mu, c);
+
+            double factor = 0.0;
+            for (int n = c + 1; n <= N; n++)
+                factor += Math.Pow(rho, n - c);
+
+            sum = 1 + sum * factor;
+
+            return 1/sum;
         }
 
         public double CalculatePZero(int c, int N, double a, double rho)
@@ -61,8 +96,12 @@ namespace MMCNQueueParameters
             return Math.Pow(sum + 1, -1);
         }
 
-        public double CalculateRho(double lambda, double mu, int c)
-            => lambda / (c * mu);
+        private double CalculateRho(double lam, double mu, int c)
+            => Math.Round(lam / (c * mu), 4);
+
+
+        public double CalculateServerUtilization(double lam, double mu, int c, int N)
+            => 1 - CalculatePZero(lam, mu, c, N);
 
         public double CalculateW(double lam, double mu, int c, int N)
             => CalculateWq(lam, mu, c, N) + 1 / mu;

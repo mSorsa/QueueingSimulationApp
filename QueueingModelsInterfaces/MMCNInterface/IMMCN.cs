@@ -11,7 +11,7 @@ namespace MMCNQueueParameters
         /// <param name="mu">Service rate</param>
         /// <param name="c">Number of servers</param>
         /// <returns></returns>
-        public double CalculateRho(double lambda, double mu, int c);
+        public double CalculateServerUtilization(double lambda, double mu, int c, int N);
 
         /// <summary>
         /// Calculates the probability of an empty system.
@@ -29,7 +29,7 @@ namespace MMCNQueueParameters
         /// <param name="c">Number of Servers</param>
         /// <param name="N">System Capacity</param>
         /// <param name="a">Arrival rate / Service rate</param>
-        /// <param name="rho">lambda/(number of servers * service rate) (Call IMMCN.CalculateRho)</param>
+        /// <param name="rho">lambda/(number of servers * service rate) (Call IMMCN.CalculateServerUtilization)</param>
         /// <returns></returns>
         public double CalculatePZero(int c, int N, double a, double rho);
 
@@ -68,7 +68,7 @@ namespace MMCNQueueParameters
         /// <param name="a">Arrival rate / Service rate</param>
         /// <param name="c">Number of servers</param>
         /// <param name="N">System capacity</param>
-        /// <param name="rho">System utilization (Call IMMCN.CalculateRho)</param>
+        /// <param name="rho">System utilization (Call IMMCN.CalculateServerUtilization)</param>
         /// <param name="pZero">Probability of an empty system (Call IMMCN.CalculatePZero)</param>
         /// <returns>Mean number of customers in queue</returns>
         public double CalculateLq(double a, int c, int N, double rho, double pZero);
