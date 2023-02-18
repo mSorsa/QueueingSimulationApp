@@ -41,7 +41,7 @@
         /// <summary>
         /// Calculates the mean number of customers in the system
         /// </summary>
-        /// <param name="lam"></param>
+        /// <param name="lam">Arrival rate</param>
         /// <param name="Wq">Mean time in queue. (Call IMMC.CalculateWq)</param>
         /// <returns>Mean number of customers in system</returns>
         double CalculateLq(double lam, double Wq);
