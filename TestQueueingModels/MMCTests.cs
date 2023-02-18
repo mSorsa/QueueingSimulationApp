@@ -1,5 +1,4 @@
 ﻿using MathematicalHelper;
-using MMCKKQueueParameters.src;
 using MMCQueueParameters.src;
 
 namespace TestQueueingModels
