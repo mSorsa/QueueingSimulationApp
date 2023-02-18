@@ -1,18 +1,71 @@
-﻿namespace MMCNQueueParameters
+﻿using MathematicalHelper;
+
+namespace MMCNQueueParameters
 {
     public class MMCNParametersCalculator : IMMCN
     {
-        public double CalculateL(double lambda, double mu, int c, int N)
-            => (Math.Pow(lambda / mu, N + 1) + c * lambda / mu * (1 - Math.Pow(lambda / (c * mu), N)) / (1 - lambda / (c * mu)))
-                / (1 - Math.Pow(lambda / (c * mu), N + 1));
+        private readonly FactorialCalculator
+        
+        public double CalculateL(double lam, double mu, int c, int N)
+            => CalculateLambdaE(lam, mu, c, N) * CalculateW(lam, mu, c, N);
 
-        public double CalculateW(double lambda, double mu, int c, int N)
-            => 1 / (mu - lambda / c * (1 - Math.Pow(lambda / (c * mu), N + 1)) / (1 - Math.Pow(lambda / (c * mu), N)));
+        public double CalculateL(double lambdaE, double w)
+            => lambdaE * w;
 
-        public double CalculateWq(double lambda, double mu, int c, int N)
-            => CalculateL(lambda, mu, c, N) / (c * mu);
+        public double CalculateLambdaE(double lam, double mu, int c, int N)
+            => lam * (1 - CalculatePn(lam, mu, c, N));
 
-        public double CalculateLq(double lambda, double mu, int c, int N)
-            => CalculateL(lambda, mu, c, N) - lambda / mu;
+        public double CalculateLambdaE(double lam, double probSystemFull)
+            => lam * probSystemFull;
+
+        public double CalculateLq(double lam, double mu, int c, int N)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double CalculateLq(double a, int c, int N, double rho, double pZero)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double CalculatePn(double lam, double mu, int c, int N)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double CalculatePn(double a, int c, double pZero)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double CalculatePZero(double lam, double mu, int c, int N)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double CalculatePZero(int c, int N, double a, double rho)
+        {
+            double sum = 0.0;
+
+            for (int n = 0; n <= c; n++)
+            {
+                sum += Math.Pow(a, n) / _
+            }
+        }
+
+        public double CalculateRho(double lambda, double mu, int c)
+            => lambda / (c * mu);
+
+        public double CalculateW(double lam, double mu, int c, int N)
+            => CalculateWq(lam, mu, c, N) + 1 / mu;
+
+        public double CalculateW(double Wq, double mu)
+            => Wq + 1 / mu;
+
+        public double CalculateWq(double lam, double mu, int c, int N)
+            => CalculateLq(lam, mu, c, N) / CalculateLambdaE(lam, mu, c, N);
+
+        public double CalculateWq(double Lq, double lambdaE)
+            => Lq / lambdaE;
     }
 }
