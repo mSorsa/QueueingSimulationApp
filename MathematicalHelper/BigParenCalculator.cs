@@ -4,8 +4,8 @@
     {
         private readonly FactorialCalculator _factorializer;
 
-        public BigParenCalculator(FactorialCalculator? factorializer)
-        { _factorializer = factorializer ?? new(); }
+        public BigParenCalculator(FactorialCalculator factorializer)
+        { _factorializer = factorializer; }
 
         /// <summary>
         /// Calculates the awkward "big parenthesis".

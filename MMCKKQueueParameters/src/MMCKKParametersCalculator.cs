@@ -5,12 +5,20 @@ namespace MMCKKQueueParameters.src
     public class MMCKKParametersCalculator : IMMCKK
     {
         private readonly FactorialCalculator _factorializer;
+        private readonly BigParenCalculator _bigParenCalculator;
 
-        public MMCKKParametersCalculator(FactorialCalculator factorializer) 
-            { _factorializer = factorializer; }
+        public MMCKKParametersCalculator(FactorialCalculator factorializer, 
+            BigParenCalculator bigParenCalculator)
+        { 
+            _factorializer = factorializer;
+            _bigParenCalculator = bigParenCalculator;
+        }
 
         //public double CalculateWq(double lam, double mu, int c)
-        //    => CalculateW(lam, CalculateL(lam, mu, c, K)) - (1 / mu);
+        //    => this.CalculateW(lam, CalculateL(lam, mu, c, K)) - (1 / mu);
+
+        //public double CalculateW(double lam, double mu, int c)
+        //    => CalculateL(lam, mu, c, K) / lam;
 
         /// <summary>
         /// P0. Probability System is empty.
@@ -25,8 +33,7 @@ namespace MMCKKQueueParameters.src
             double sum = 0.0;
 
             for (int n = 0; n < c; n++)
-                sum += _factorializer.Factorial(K) / (_factorializer.Factorial(n)
-                        * _factorializer.Factorial(K - n))
+                sum += _bigParenCalculator.CalculateBigParen(K, n)
                         * Math.Pow((lam / mu), n);
 
             for (int n = c; n <= K; n++)
@@ -34,7 +41,7 @@ namespace MMCKKQueueParameters.src
                         * _factorializer.Factorial(c) * Math.Pow(c, n - c)))
                         * Math.Pow((lam / mu), n);
 
-            return Math.Round(Math.Pow(sum, -1), 3);
+            return Math.Pow(sum, -1);
         }
 
         /// <summary>
@@ -64,26 +71,21 @@ namespace MMCKKQueueParameters.src
         /// <param name="K"> Calling Population </param>
         /// <param name="n"> Given number in system </param>
         /// <returns>The probability of n number in system</returns>
+        /// <exception cref="ArgumentException">Thrown when n is not within acceptable range [0, K].</exception>
         public double CalculatePn(double lam, double mu, int c, int K, int n)
         {
-            int kFact = _factorializer.Factorial(K);
-            int knFact = _factorializer.Factorial(K - n);
-            int cFact = _factorializer.Factorial(c);
-            int nFact = _factorializer.Factorial(n);
-            double cPownc = Math.Pow(c, n - c);
-            double lamDivMuPown = Math.Pow((lam / mu), n);
-            double p0 = CalculatePZero(lam, mu, c, K);
+            if (n > 0 && n < c)
+                return _bigParenCalculator.CalculateBigParen(K, n)
+                        * Math.Pow((lam / mu), n)
+                        * CalculatePZero(lam, mu, c, K);
 
+            if (n >= c && n <= K)
+                return  _factorializer.Factorial(K) 
+                        / (_factorializer.Factorial(K - n) * _factorializer.Factorial(c) * Math.Pow(c, n - c))
+                  * Math.Pow((lam / mu), n)
+                  * CalculatePZero(lam, mu, c, K);
 
-            if (n < c)
-                return (kFact / (nFact * knFact))
-                        * lamDivMuPown
-                        * p0;
-
-
-            return kFact / (knFact * cFact * cPownc)
-                    * lamDivMuPown
-                    * p0;
+            throw new ArgumentException("n must be greater than 0 and less than K");
         }
 
 
