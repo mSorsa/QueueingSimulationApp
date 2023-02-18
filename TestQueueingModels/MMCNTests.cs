@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MMCNQueueParameters;
 
 namespace TestQueueingModels
 {
-    internal class MMCNTests
+    public class MMCNTests
     {
+        private readonly IMMCN _mmcn = new MMCNParametersCalculator(new MathematicalHelper.FactorialCalculator());
+
     }
 }

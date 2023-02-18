@@ -70,11 +70,79 @@ namespace MMCNQueueParameters
         /// <param name="N">System capacity</param>
         /// <param name="rho">System utilization (Call IMMCN.CalculateRho)</param>
         /// <param name="pZero">Probability of an empty system (Call IMMCN.CalculatePZero)</param>
-        /// <returns></returns>
+        /// <returns>Mean number of customers in queue</returns>
         public double CalculateLq(double a, int c, int N, double rho, double pZero);
 
+        /// <summary>
+        /// Calculates the effective arrival rate
+        /// </summary>
+        /// <param name="lam">Arrival rate</param>
+        /// <param name="mu">Service rate</param>
+        /// <param name="c">Number of servers</param>
+        /// <param name="N">System capacity</param>
+        /// <returns>Effective arrival rate</returns>
         public double CalculateLambdaE(double lam, double mu, int c, int N);
 
+        /// <summary>
+        /// Alternate method to calculates the effective arrival rate
+        /// </summary>
+        /// <param name="lam">Arrival rate</param>
+        /// <param name="probSystemFull">Probability system is full (Call IMMCN.CalculatePn)</param>
+        /// <returns>Effective arrival rate</returns>
         public double CalculateLambdaE(double lam, double probSystemFull);
+
+        /// <summary>
+        /// Calculates the effective arrival rate
+        /// </summary>
+        /// <param name="lam">Arrival rate</param>
+        /// <param name="mu">Service rate</param>
+        /// <param name="c">Number of servers</param>
+        /// <param name="N">System capacity</param>
+        /// <returns>Mean time customers spends in queue</returns>
+        public double CalculateWq(double lam, double mu, int c, int N);
+
+        /// <summary>
+        /// Alternate method to calculate the mean time customers spends in queue
+        /// </summary>
+        /// <param name="Lq">Mean number of customers in queue (Call IMMCN.CalculateLq)</param>
+        /// <param name="lambdaE">Effective arrival rate (Call IMMCN.CalculateLambdaE)</param>
+        /// <returns>Mean time customers spends in queue</returns>
+        public double CalculateWq(double Lq, double lambdaE);
+
+        /// <summary>
+        /// Calculates the mean time customers spends in system
+        /// </summary>
+        /// <param name="lam">Arrival rate</param>
+        /// <param name="mu">Service rate</param>
+        /// <param name="c">Number of servers</param>
+        /// <param name="N">System capacity</param>
+        /// <returns>Mean time customers spends in system</returns>
+        public double CalculateW(double lam, double mu, int c, int N);
+
+        /// <summary>
+        /// Alternate method to calculate the mean time customers spends in system
+        /// </summary>
+        /// <param name="Wq">Mean time customers spends in queue (Call IMMCN.CalculateWq)</param>
+        /// <param name="mu">Service rate</param>
+        /// <returns></returns>
+        public double CalculateW(double Wq, double mu);
+
+        /// <summary>
+        /// Calculates the mean number of customers in the system
+        /// </summary>
+        /// <param name="lam">Arrival rate</param>
+        /// <param name="mu">Service rate</param>
+        /// <param name="c">Number of servers</param>
+        /// <param name="N">System capacity</param>
+        /// <returns>The mean number of customers in system</returns>
+        public double CalculateL(double lam, double mu, int c, int N);
+
+        /// <summary>
+        /// Alternate method to calculate the mean number of customers in the system
+        /// </summary>
+        /// <param name="lambdaE">Effective arrival rate (Call IMMCN.CalculateLambdaE)</param>
+        /// <param name="w">Mean time customers spends in queue (Call IMMCN.CalculateW)</param>
+        /// <returns>The mean number of customers in system</returns>
+        public double CalculateL(double lambdaE, double w);
     }
 }

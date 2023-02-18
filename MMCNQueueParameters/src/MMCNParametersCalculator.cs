@@ -4,8 +4,13 @@ namespace MMCNQueueParameters
 {
     public class MMCNParametersCalculator : IMMCN
     {
-        private readonly FactorialCalculator
-        
+        private readonly FactorialCalculator _factorailizer;
+
+        public MMCNParametersCalculator(FactorialCalculator factorializer)
+        {
+            _factorailizer = factorializer;
+        }
+
         public double CalculateL(double lam, double mu, int c, int N)
             => CalculateLambdaE(lam, mu, c, N) * CalculateW(lam, mu, c, N);
 
@@ -48,9 +53,12 @@ namespace MMCNQueueParameters
             double sum = 0.0;
 
             for (int n = 0; n <= c; n++)
-            {
-                sum += Math.Pow(a, n) / _
-            }
+                sum += Math.Pow(a, n) / _factorailizer.Factorial(n) + Math.Pow(a, c) / _factorailizer.Factorial(c);
+
+            for (int n = 0; n < N; n++)
+                sum += Math.Pow(rho, n - c);
+
+            return Math.Pow(sum + 1, -1);
         }
 
         public double CalculateRho(double lambda, double mu, int c)
