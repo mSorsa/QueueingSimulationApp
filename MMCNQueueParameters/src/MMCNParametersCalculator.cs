@@ -25,7 +25,7 @@ namespace MMCNQueueParameters
 
         public double CalculateLq(double lam, double mu, int c, int N)
         {
-            double rho = CalculateServerUtilization(lam, mu, c, N);
+            double rho = CalculateRho(lam, mu, c);
             double sum = CalculatePZero(lam, mu, c, N) * CalculateA(lam, mu) * rho;
             
             sum /= (_factorailizer.Factorial(c) * Math.Pow(1 - rho, 2));
@@ -83,10 +83,12 @@ namespace MMCNQueueParameters
             for (int n = 0; n <= c; n++)
                 sum += Math.Pow(a, n) / _factorailizer.Factorial(n) + Math.Pow(a, c) / _factorailizer.Factorial(c);
 
+            double factor = 0.0;
             for (int n = 0; n < N; n++)
-                sum += Math.Pow(rho, n - c);
+                factor += Math.Pow(rho, n - c);
 
-            return Math.Pow(sum + 1, -1);
+            sum = sum * factor + 1;
+            return 1/sum;
         }
 
         private double CalculateRho(double lam, double mu, int c)
