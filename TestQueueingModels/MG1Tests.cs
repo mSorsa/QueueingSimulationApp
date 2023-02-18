@@ -80,11 +80,13 @@ namespace TestQueueingModels
 
         // P0
         [Theory]
-        [InlineData(1, 2, 0.5)]
-        [InlineData(3, 7, 0.571)]
-        [InlineData(8, 12, 0.333)]
+        [InlineData(1, 2, 0, 0.5)]
+        [InlineData(3, 7, 0, 0.571)]
+        [InlineData(8, 12, 0, 0.333)]
+        [InlineData(2.0, 4.0, 2.0, 0.5)]
+        [InlineData(3.0, 4.0, 2.0, 0.25)]
         public void CalculatePZero_ValidInput_ReturnsExpectedResult(double lam,
-            double mu, double expected)
+            double mu, double variance, double expected)
         {
             // Act
             var result = _mg1.CalculatePZero(lam, mu);
