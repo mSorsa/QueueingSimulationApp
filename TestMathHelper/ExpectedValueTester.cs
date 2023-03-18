@@ -12,18 +12,18 @@ namespace TestMathHelper
         [InlineData(new double[] { 10, 20, 30 }, 20.0)]
         public void TestCalculateExpectedValue_ValidInput_CorrectOut(double[] values, double expected)
         {
-            var result = _calculator.CalculateExpectedValue(values);
+            var result = ExpectedValueCalculator.CalculateExpectedValue(values);
             Assert.Equal(expected, result, 4);
         }
 
         [Theory]
         [InlineData(new double[] { })]
         public void TestCalculateExpectedValue_InvalidInput_EmptyArray(double[] values)
-            => Assert.Throws<DivideByZeroException>(() => _calculator.CalculateExpectedValue(values));
+            => Assert.Throws<DivideByZeroException>(() => ExpectedValueCalculator.CalculateExpectedValue(values));
 
         [Theory]
         [InlineData(null)]
         public void TestCalculateExpectedValue_InvalidInput_NullArray(double[] values)
-            => Assert.Throws<ArgumentNullException>(() => _calculator.CalculateExpectedValue(values));
+            => Assert.Throws<ArgumentNullException>(() => ExpectedValueCalculator.CalculateExpectedValue(values));
     }
 }

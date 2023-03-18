@@ -2,7 +2,7 @@
 {
     public class ExpectedValueCalculator
     {
-        public double CalculateExpectedValue(double[] values)
+        public static double CalculateExpectedValue(double[] values)
         {
             if (values is null)
                 throw new ArgumentNullException("Values is null.");

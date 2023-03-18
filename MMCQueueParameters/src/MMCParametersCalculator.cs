@@ -10,7 +10,6 @@ namespace MMCQueueParameters.src
         private double _mu;
         private int _c;
 
-
         public MMCParametersCalculator(FactorialCalculator? factorialCalculator, double lam, double mu, int c)
         {
             this._factorializer = factorialCalculator ?? new();
@@ -19,10 +18,12 @@ namespace MMCQueueParameters.src
             this.SetC(c);
         }
 
-        private void SetLambda(double value) => this._lam = value;
-        private void SetMu(double value) => this._mu = value;
-        private void SetC(int value) => this._c = value;
-
+        private void SetLambda(double value)
+            => this._lam = value;
+        private void SetMu(double value)
+            => this._mu = value;
+        private void SetC(int value)
+            => this._c = value;
 
         public double CalculateRho()
             => this._lam / (this._c * this._mu);

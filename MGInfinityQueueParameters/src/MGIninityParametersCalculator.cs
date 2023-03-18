@@ -7,9 +7,8 @@ namespace MGInfinityQueueParameters.src
     {
         private readonly FactorialCalculator _calculator;
 
-        public MGInfinityParametersCalculator(FactorialCalculator? factorialCalculator)
-        { this._calculator = factorialCalculator ?? new(); }
-
+        public MGInfinityParametersCalculator(FactorialCalculator? factorialCalculator) 
+            => this._calculator = factorialCalculator ?? new();
 
         public double CalculatePZero(double lambda, double mu)
         {
