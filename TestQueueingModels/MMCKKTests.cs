@@ -9,8 +9,6 @@ namespace TestQueueingModels
         private static readonly FactorialCalculator _factorialCalculator = new();
         private static readonly BigParenCalculator _bigParenCalculator = new(_factorialCalculator);
 
-        private static readonly IMMCKK _mmckk = new MMCKKParametersCalculator(_factorialCalculator, _bigParenCalculator);
-
         // P0
         [Theory]
         [InlineData(1.0, 1.0, 2, 5, 0.019)]
@@ -22,8 +20,9 @@ namespace TestQueueingModels
         [InlineData(7.233, 5.560, 2, 10, 0.000)]
         public void CalculatePZero_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int K, double expected)
         {
+            IMMCKK _mmckk = new MMCKKParametersCalculator(_factorialCalculator, _bigParenCalculator, lam, mu, c, K);
             // Act
-            var actual = _mmckk.CalculatePZero(lam, mu, c, K);
+            var actual = _mmckk.CalculatePZero();
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -39,8 +38,9 @@ namespace TestQueueingModels
         [InlineData(7.233, 5.560, 2, 10, 8.463)]
         public void CalculateL_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int K, double expected)
         {
+            IMMCKK _mmckk = new MMCKKParametersCalculator(_factorialCalculator, _bigParenCalculator, lam, mu, c, K);
             // Act
-            var actual = _mmckk.CalculateL(lam, mu, c, K);
+            var actual = _mmckk.CalculateL();
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -54,8 +54,9 @@ namespace TestQueueingModels
         [InlineData(7.233, 5.560, 2, 10, 6.463)]
         public void CalculateLq_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int K, double expected)
         {
+            IMMCKK _mmckk = new MMCKKParametersCalculator(_factorialCalculator, _bigParenCalculator, lam, mu, c, K);
             // Act
-            var actual = _mmckk.CalculateLq(lam, mu, c, K);
+            var actual = _mmckk.CalculateLq();
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -67,8 +68,9 @@ namespace TestQueueingModels
         [InlineData(7.233, 5.560, 2, 10, 11.120)]
         public void CalculateLambdaE_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int K, double expected)
         {
+            IMMCKK _mmckk = new MMCKKParametersCalculator(_factorialCalculator, _bigParenCalculator, lam, mu, c, K);
             // Act
-            var actual = _mmckk.CalculateLambdaE(lam, mu, c, K);
+            var actual = _mmckk.CalculateLambdaE();
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -83,8 +85,9 @@ namespace TestQueueingModels
         [InlineData(7.233, 5.560, 2, 10, 0.761)]
         public void CalculateW_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int K, double expected)
         {
+            IMMCKK _mmckk = new MMCKKParametersCalculator(_factorialCalculator, _bigParenCalculator, lam, mu, c, K);
             // Act
-            var actual = _mmckk.CalculateW(lam, mu, c, K);
+            var actual = _mmckk.CalculateW();
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -98,8 +101,9 @@ namespace TestQueueingModels
         [InlineData(7.233, 5.560, 2, 10, 0.761)]
         public void CalculateAlternateW_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int K, double expected)
         {
+            IMMCKK _mmckk = new MMCKKParametersCalculator(_factorialCalculator, _bigParenCalculator, lam, mu, c, K);
             // Act
-            var actual = _mmckk.CalculateW(_mmckk.CalculateL(lam, mu, c, K), _mmckk.CalculateLambdaE(lam, mu, c, K));
+            var actual = _mmckk.CalculateW(_mmckk.CalculateL(), _mmckk.CalculateLambdaE());
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -112,8 +116,9 @@ namespace TestQueueingModels
         [InlineData(7.233, 5.560, 2, 10, 0.581)]
         public void CalculateWq_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int K, double expected)
         {
+            IMMCKK _mmckk = new MMCKKParametersCalculator(_factorialCalculator, _bigParenCalculator, lam, mu, c, K);
             // Act
-            var actual = _mmckk.CalculateWq(lam, mu, c, K);
+            var actual = _mmckk.CalculateWq();
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -124,8 +129,9 @@ namespace TestQueueingModels
         [InlineData(7.233, 5.560, 2, 10, 0.581)]
         public void CalculateAlternateWq_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int K, double expected)
         {
+            IMMCKK _mmckk = new MMCKKParametersCalculator(_factorialCalculator, _bigParenCalculator, lam, mu, c, K);
             // Act
-            var actual = _mmckk.CalculateWq(_mmckk.CalculateLq(lam, mu, c, K), _mmckk.CalculateLambdaE(lam, mu, c, K));
+            var actual = _mmckk.CalculateWq(_mmckk.CalculateLq(), _mmckk.CalculateLambdaE());
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -137,8 +143,9 @@ namespace TestQueueingModels
         [InlineData(7.233, 5.560, 2, 10, 1)]
         public void CalculateRho_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int K, double expected)
         {
+            IMMCKK _mmckk = new MMCKKParametersCalculator(_factorialCalculator, _bigParenCalculator, lam, mu, c, K);
             // Act
-            var actual = _mmckk.CalculateRho(lam, mu, c, K);
+            var actual = _mmckk.CalculateRho();
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -149,8 +156,9 @@ namespace TestQueueingModels
         [InlineData(7.233, 5.560, 2, 10, 1)]
         public void CalculateAlternateRho_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int K, double expected)
         {
+            IMMCKK _mmckk = new MMCKKParametersCalculator(_factorialCalculator, _bigParenCalculator, lam, mu, c, K);
             // Act
-            var actual = _mmckk.CalculateRho(_mmckk.CalculateL(lam, mu, c, K), _mmckk.CalculateLq(lam, mu, c, K), c);
+            var actual = _mmckk.CalculateRho(_mmckk.CalculateL(), _mmckk.CalculateLq());
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -161,8 +169,9 @@ namespace TestQueueingModels
         [InlineData(7.233, 5.560, 2, 10, 1)]
         public void CalculateAlternate2Rho_ValidInputs_ReturnsCorrectResult(double lam, double mu, int c, int K, double expected)
         {
+            IMMCKK _mmckk = new MMCKKParametersCalculator(_factorialCalculator, _bigParenCalculator, lam, mu, c, K);
             // Act
-            var actual = _mmckk.CalculateRho(mu, c, _mmckk.CalculateLambdaE(lam, mu, c, K));
+            var actual = _mmckk.CalculateRho(_mmckk.CalculateLambdaE());
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }

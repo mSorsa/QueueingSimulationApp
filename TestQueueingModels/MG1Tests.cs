@@ -5,8 +5,6 @@ namespace TestQueueingModels
 {
     public class MG1Tests
     {
-        private static readonly IMG1 _mg1 = new MG1ParametersCalculator();
-
         // CalculateL
         [Theory]
         [InlineData(0.5, 0.6, 1.0, 3.667)]
@@ -14,7 +12,8 @@ namespace TestQueueingModels
         [InlineData(1.236, 2.587, 0.556, 1.510)]
         public void CalculateL_ValidInputs_ReturnsCorrectResult(double lambda, double mu, double variance, double expected)
         {
-            var actual = _mg1.CalculateL(lambda, mu, variance);
+            IMG1 _mg1 = new MG1ParametersCalculator(lambda, mu, variance);
+            var actual = _mg1.CalculateL();
 
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -24,7 +23,10 @@ namespace TestQueueingModels
         [InlineData(3.0, 2.0)]
         public void CalculateL_InvalidInputs_ThrowsException(double lambda,
             double mu, double variance = 0)
-            => Assert.Throws<ArgumentException>(() => _mg1.CalculateL(lambda, mu, variance));
+        {
+            IMG1 _mg1 = new MG1ParametersCalculator(lambda, mu, variance);
+            _ = Assert.Throws<ArgumentException>(() => _mg1.CalculateL());
+        }
 
         // W
         [Theory]
@@ -35,8 +37,9 @@ namespace TestQueueingModels
         public void CalculateW_ValidInputs_ReturnsCorrectResult(double lambda,
             double mu, double variance, double expected)
         {
+            IMG1 _mg1 = new MG1ParametersCalculator(lambda, mu, variance);
             // Act
-            var result = _mg1.CalculateW(lambda, mu, variance);
+            var result = _mg1.CalculateW();
 
             // Assert
             Assert.Equal(expected: expected, actual: result, precision: 3);
@@ -46,7 +49,10 @@ namespace TestQueueingModels
         [InlineData(2.0, 1.0)]
         public void CalculateW_InvalidInputs_ThrowsArgException(double lambda,
             double mu, double variance = 0)
-            => Assert.Throws<ArgumentException>(() => _mg1.CalculateW(lambda, mu, variance));
+        {
+            IMG1 _mg1 = new MG1ParametersCalculator(lambda, mu, variance);
+            _ = Assert.Throws<ArgumentException>(() => _mg1.CalculateW());
+        }
 
         // Wq
         [Theory]
@@ -55,7 +61,8 @@ namespace TestQueueingModels
         [InlineData(0.001, 0.002, 0.003, 250.000)]
         public void CalculateWq_ValidInputs_ReturnsCorrectResult(double lambda, double mu, double variance, double expected)
         {
-            var actual = _mg1.CalculateWq(lambda, mu, variance);
+            IMG1 _mg1 = new MG1ParametersCalculator(lambda, mu, variance);
+            var actual = _mg1.CalculateWq();
 
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -67,7 +74,8 @@ namespace TestQueueingModels
         [InlineData(0.26, 0.398, 0.556, 0.670)]
         public void CalculateLq_ValidInputs_ReturnsCorrectResult(double lambda, double mu, double variance, double expected)
         {
-            var actual = _mg1.CalculateLq(lambda, mu, variance);
+            IMG1 _mg1 = new MG1ParametersCalculator(lambda, mu, variance);
+            var actual = _mg1.CalculateLq();
 
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
@@ -79,11 +87,12 @@ namespace TestQueueingModels
         [InlineData(8, 12, 0.333)]
         [InlineData(2.0, 4.0, 0.5)]
         [InlineData(3.0, 4.0, 0.25)]
-        public void CalculatePZero_ValidInput_ReturnsExpectedResult(double lam,
+        public void CalculatePZero_ValidInput_ReturnsExpectedResult(double lambda,
             double mu, double expected)
         {
             // Act
-            var result = _mg1.CalculatePZero(lam, mu);
+            IMG1 _mg1 = new MG1ParametersCalculator(lambda, mu);
+            var result = _mg1.CalculatePZero();
 
             //Assert
             Assert.Equal(expected: expected, actual: result, precision: 3);
@@ -92,14 +101,19 @@ namespace TestQueueingModels
         [Theory]
         [InlineData(8, null)]
         [InlineData(1, 0)]
-        public void CalculatePZero_InvalidInput_ThrowsDivByZeroException(double lam, double mu)
-            => Assert.Throws<DivideByZeroException>(() => _mg1.CalculatePZero(lam, mu));
+        public void CalculatePZero_InvalidInput_ThrowsDivByZeroException(double lambda, double mu)
+        {
+            IMG1 _mg1 = new MG1ParametersCalculator(lambda, mu);
+            _ = Assert.Throws<DivideByZeroException>(() => _mg1.CalculatePZero());
+        }
 
         [Theory]
         [InlineData(-1, 10)]
         [InlineData(5, -23)]
-        public void CalculatePZero_InvalidInput_ThrowsArgumentException(double lam, double mu)
-            => Assert.Throws<ArgumentException>(() => _mg1.CalculatePZero(lam, mu));
-
+        public void CalculatePZero_InvalidInput_ThrowsArgumentException(double lambda, double mu)
+        {
+            IMG1 _mg1 = new MG1ParametersCalculator(lambda, mu);
+            _ = Assert.Throws<ArgumentException>(() => _mg1.CalculatePZero());
+        }
     }
 }

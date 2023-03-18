@@ -4,109 +4,114 @@ namespace MG1QueueParameters.src
 {
     public class MG1ParametersCalculator : IMG1
     {
-        // ρ
-        public double CalculateRho(double lambda, double mu)
-        {
-            if (mu is 0)
-                throw new DivideByZeroException("Service rate [mu] cannot be zero when calculating Rho.");
-            if (mu < 0)
-                throw new ArgumentException("Service rate [mu] must be greater than 0.");
+        private double _lambda;
+        private double _mu;
+        private double _sigma;
 
-            return lambda / mu;
+        public MG1ParametersCalculator(double lambda, double mu, double sigma = 0)
+        {
+            SetLambda(lambda);
+            SetMu(mu);
+            SetSigma(sigma);
         }
 
-        // L
-        public double CalculateL(double lambda, double mu, double sigma = 0)
+        public void SetLambda(double value) 
+            => this._lambda = value;
+
+        public void SetMu(double value)
+            => this._mu = value;
+
+        public void SetSigma(double value) 
+            => this._sigma = value;
+
+        public double CalculateRho()
+            => this._mu is 0
+                ? throw new DivideByZeroException("Service rate [mu] cannot be zero when calculating Rho.")
+                : this._lambda / this._mu;
+
+        public double CalculateL()
         {
-            if (lambda >= mu)
+            if (this._lambda >= this._mu)
                 throw new ArgumentException("Arrival rate [lambda] must be less than Service rate [mu].");
 
-            double rho = CalculateRho(lambda, mu);
+            var rho = CalculateRho();
 
-            double L = rho + lambda * lambda
-                * GetMG1StandardTop(mu, sigma)
-                / GetMG1StandardBottom(rho);
+            var L = rho + (this._lambda * this._lambda
+                * GetMG1StandardTop()
+                / GetMG1StandardBottom(rho));
 
             return L;
         }
 
         private static double GetMG1StandardBottom(double rho)
-        {
-            if (rho is 1)
-                throw new ArgumentException("Rho cannot be 1. Division by zero when calculating MG1 parameter.");
+            => rho is 1 
+            ? throw new ArgumentException("Rho cannot be 1. Division by zero when calculating MG1 parameter.") 
+            : 2 * (1 - rho);
 
-            return 2 * (1 - rho);
-        }
-
-        private static double GetMG1StandardTop(double mu, double sigma)
+        private double GetMG1StandardTop()
         {
-            if (mu is 0)
+            if (this._mu is 0)
                 throw new DivideByZeroException("Mu cannot be 0. Division by zero when calculating MG1 parameter.");
 
-            double musqrd = Math.Pow(mu, 2);
+            var musqrd = Math.Pow(this._mu, 2);
 
-            return 1 / musqrd + sigma;
+            return (1 / musqrd) + this._sigma;
         }
 
-        // W
-        public double CalculateW(double lambda, double mu, double sigma)
+        public double CalculateW()
         {
-            if (mu is 0)
+            if (this._mu is 0)
                 throw new DivideByZeroException("Service rate [mu] cannot be zero when calculating W.");
-            if (lambda >= mu)
+            if (this._lambda >= this._mu)
                 throw new ArgumentException("Arrival rate [lambda] must be less than Service rate [mu].");
 
-            double first = 1 / mu;
+            var first = 1 / this._mu;
 
-            double topparen = CalculateStandardTopParenthesis(mu, sigma);
-            double bottomparen = GetDivisionBottom(CalculateRho(lambda, mu));
+            var topparen = CalculateStandardTopParenthesis();
+            var bottomparen = GetDivisionBottom(CalculateRho());
 
-            double W = first + Math.Round(lambda * topparen / bottomparen, 3);
+            var W = first + Math.Round(this._lambda * topparen / bottomparen, 3);
 
             return W;
         }
 
         private static double GetDivisionBottom(double rho)
-        {
-            if (rho is 1)
-                throw new ArgumentException("Rho cannot be 1. Division by zero when calculating MG1 parameter.");
+            => rho is 1 
+                ? throw new ArgumentException("Rho cannot be 1. Division by zero when calculating MG1 parameter.") 
+                : 2 * (1 - rho);
 
-            return 2 * (1 - rho);
+        private double CalculateStandardTopParenthesis()
+            => this._mu == 0
+                ? throw new DivideByZeroException($"Calculating bottom part of parenthesis with values mu = {this._mu}, and sigma = {this._sigma} results in division by 0.")
+                : (1 / (this._mu * this._mu)) + this._sigma;
+
+        public double CalculateWq()
+        {
+            var topparen = CalculateStandardTopParenthesis();
+            var bottomparen = GetDivisionBottom(CalculateRho());
+
+            return Math.Round(this._lambda * topparen / bottomparen, 3);
         }
 
         private static double CalculateStandardTopParenthesis(double mu, double sigma)
-        {
-            if (mu == 0)
-                throw new DivideByZeroException($"Calculating bottom part of parenthesis with values mu = {mu}, and sigma = {sigma} results in division by 0.");
+            => mu == 0
+                ? throw new DivideByZeroException($"Calculating bottom part of parenthesis with values mu = {mu}, and sigma = {sigma} results in division by 0.")
+                : (1 / (mu * mu)) + sigma;
 
-            return 1 / (mu * mu) + sigma;
+        public double CalculateLq()
+        {
+            var top = this._lambda * this._lambda * CalculateStandardTopParenthesis(this._mu, this._sigma);
+            
+            return top / GetDivisionBottom(CalculateRho());
         }
 
-        public double CalculateWq(double lambda, double mu, double sigma)
-        {
-            double topparen = CalculateStandardTopParenthesis(mu, sigma);
-            double bottomparen = GetDivisionBottom(CalculateRho(lambda, mu));
-
-            return Math.Round(lambda * topparen / bottomparen, 3);
-        }
-
-        public double CalculateLq(double lambda, double mu, double sigma = 0)
-        {
-            double top = lambda * lambda * CalculateStandardTopParenthesis(mu, sigma);
-
-            return top / GetDivisionBottom(CalculateRho(lambda, mu));
-        }
-
-        public double CalculatePZero(double lambda, double mu)
-        {
-            if (lambda <= 0)
-                throw new ArgumentException("Arrival rate [lambda] must be greater than 0.");
-            if (mu < 0)
-                throw new ArgumentException("Service rate [mu] must be greater than 0.");
-            if (mu is 0)
-                throw new DivideByZeroException("Service rate [mu] cannot be 0.");
-
-            return 1 - CalculateRho(lambda, mu);
-        }
+        public double CalculatePZero()
+            => this._lambda <= 0
+                ? throw new ArgumentException("Arrival rate [lambda] must be greater than 0.")
+                : this._mu < 0
+                    ? throw new ArgumentException("Service rate [mu] must be greater than 0.")
+                    : this._mu is 0
+                        ? throw new DivideByZeroException("Service rate [mu] cannot be 0.")
+                        : 1 - CalculateRho();
     }
 }

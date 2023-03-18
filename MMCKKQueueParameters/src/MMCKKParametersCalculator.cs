@@ -8,94 +8,115 @@ namespace MMCKKQueueParameters.src
         private readonly FactorialCalculator _factorializer;
         private readonly BigParenCalculator _bigParenCalculator;
 
+        private double _lam;
+        private double _mu;
+        private int _c;
+        private int _K;
+
         public MMCKKParametersCalculator(FactorialCalculator factorializer,
-            BigParenCalculator bigParenCalculator)
+            BigParenCalculator bigParenCalculator,
+            double lam,
+            double mu,
+            int c,
+            int K)
         {
             this._factorializer = factorializer;
             this._bigParenCalculator = bigParenCalculator;
+            this.SetLambda(lam);
+            this.SetMu(mu);
+            this.SetC(c);
+            this.SetK(K);
         }
 
-        public double CalculatePZero(double lam, double mu, int c, int K)
+        public void SetLambda(double value)
+            => this._lam = value;
+        public void SetMu(double value)
+            => this._mu = value;
+        public void SetC(int value)
+            => this._c = value;
+        public void SetK(int value)
+            => this._K = value;
+
+        public double CalculatePZero()
         {
             var sum = 0.0;
 
-            for (var n = 0; n < c; n++)
-                sum += this._bigParenCalculator.CalculateBigParen(K, n)
-                        * Math.Pow((lam / mu), n);
+            for (var n = 0; n < this._c; n++)
+                sum += this._bigParenCalculator.CalculateBigParen(this._K, n)
+                        * Math.Pow(this._lam / this._mu, n);
 
-            for (var n = c; n <= K; n++)
-                sum += (this._factorializer.Factorial(K) / (this._factorializer.Factorial(K - n)
-                        * this._factorializer.Factorial(c) * Math.Pow(c, n - c)))
-                        * Math.Pow((lam / mu), n);
+            for (var n = this._c; n <= this._K; n++)
+                sum += this._factorializer.Factorial(this._K) / (this._factorializer.Factorial(this._K - n)
+                        * this._factorializer.Factorial(this._c) * Math.Pow(this._c, n - this._c))
+                        * Math.Pow(this._lam / this._mu, n);
 
             return Math.Pow(sum, -1);
         }
 
-        public double CalculateL(double lam, double mu, int c, int K)
+        public double CalculateL()
         {
             var sum = 0.0;
 
-            for (var n = 1; n <= K; n++)
-                sum += n * this.CalculatePn(lam, mu, c, K, n);
+            for (var n = 1; n <= this._K; n++)
+                sum += n * this.CalculatePn(n);
 
             return sum;
         }
 
-        private double CalculatePn(double lam, double mu, int c, int K, int n)
+        private double CalculatePn(int n)
         {
-            if (n >= 0 && n < c)
-                return this._bigParenCalculator.CalculateBigParen(K, n)
-                        * Math.Pow((lam / mu), n)
-                        * this.CalculatePZero(lam, mu, c, K);
-
-            if (n >= c && n <= K)
-                return this._factorializer.Factorial(K)
-                        / (this._factorializer.Factorial(K - n) * this._factorializer.Factorial(c) * Math.Pow(c, n - c))
-                  * Math.Pow((lam / mu), n)
-                  * this.CalculatePZero(lam, mu, c, K);
-
-            throw new ArgumentException("n must be greater than 0 and less than K");
+            return n >= 0 && n < this._c
+                ? this._bigParenCalculator.CalculateBigParen(this._K, n)
+                        * Math.Pow(this._lam / this._mu, n)
+                        * this.CalculatePZero()
+                : n >= this._c && n <= this._K
+                    ? this._factorializer.Factorial(this._K)
+                        / (this._factorializer.Factorial(this._K - n) * this._factorializer.Factorial(this._c)
+                            * Math.Pow(this._c, n - this._c))
+                        * Math.Pow(this._lam / this._mu, n)
+                        * this.CalculatePZero()
+                    : throw new ArgumentException("n must be greater than 0 and less than K");
         }
 
-        public double CalculateW(double lam, double mu, int c, int K)
-            => this.CalculateL(lam, mu, c, K) / this.CalculateLambdaE(lam, mu, c, K);
+        public double CalculateW()
+            => this.CalculateL() / this.CalculateLambdaE();
 
         public double CalculateW(double L, double lambdaE)
             => L / lambdaE;
 
-        public double CalculateLambdaE(double lam, double mu, int c, int K)
+        public double CalculateLambdaE()
         {
             var sum = 0.0;
 
-            for (var n = 0; n <= K; n++)
-                sum += (K - n) * lam * this.CalculatePn(lam, mu, c, K, n);
+            for (var n = 0; n <= this._K; n++)
+                sum += (this._K - n) * this._lam * this.CalculatePn(n);
 
             return sum;
         }
 
-        public double CalculateWq(double lam, double mu, int c, int K)
-            => this.CalculateLq(lam, mu, c, K) / this.CalculateLambdaE(lam, mu, c, K);
+        public double CalculateWq()
+            => this.CalculateLq() / this.CalculateLambdaE();
 
         public double CalculateWq(double lq, double lambdaE)
             => lq / lambdaE;
 
-        public double CalculateLq(double lam, double mu, int c, int K)
+        public double CalculateLq()
         {
             var sum = 0.0;
 
-            for (var n = c + 1; n <= K; n++)
-                sum += (n - c) * this.CalculatePn(lam, mu, c, K, n);
+            for (var n = this._c + 1; n <= this._K; n++)
+                sum += (n - this._c) * this.CalculatePn(n);
 
             return sum;
         }
 
-        public double CalculateRho(double lam, double mu, int c, int K)
-            => (this.CalculateL(lam, mu, c, K) - this.CalculateLq(lam, mu, c, K)) / c;
+        public double CalculateRho()
+            => (this.CalculateL() - this.CalculateLq()) / this._c;
 
-        public double CalculateRho(double mu, int c, double lambdaE)
-            => lambdaE / (c * mu);
+        public double CalculateRho(double lambdaE)
+            => lambdaE / (this._c * this._mu);
 
-        public double CalculateRho(double L, double Lq, int c)
-            => (L - Lq) / c;
+        public double CalculateRho(double L, double Lq)
+            => (L - Lq) / this._c;
     }
 }
