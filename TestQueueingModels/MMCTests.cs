@@ -1,5 +1,4 @@
-﻿using MathematicalHelper;
-using MMCQueueParameters.src;
+﻿using MMCQueueParameters.src;
 using QueueingModelsInterfaces.MMCInterface;
 
 namespace TestQueueingModels

@@ -5,7 +5,7 @@ namespace TestQueueingModels
 {
     public class MMCNTests
     {
-        private readonly IMMCN _mmcn = new MMCNParametersCalculator(new MathematicalHelper.FactorialCalculator());
+        private readonly IMMCN _mmcn = new MMCNParametersCalculator(new FactorialCalculator());
 
         [Theory]
         [InlineData(1.5, 2.0, 1, 7, 0.722)]

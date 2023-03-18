@@ -51,7 +51,7 @@ namespace MGInfinityQueueParameters.src
             muCheck(mu);
 
             var top = Math.Pow(Math.E, -lambda / mu) * Math.Pow(lambda / mu, n);
-            double bottom = this._calculator.Factorial(n);
+            double bottom = FactorialCalculator.Factorial(n);
 
             return top / bottom;
         }

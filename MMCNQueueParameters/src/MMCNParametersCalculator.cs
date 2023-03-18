@@ -27,7 +27,7 @@ namespace MMCNQueueParameters.src
             var rho = CalculateRho(lam, mu, c);
             var sum = this.CalculatePZero(lam, mu, c, N) * CalculateA(lam, mu) * rho;
 
-            sum /= this._factorailizer.Factorial(c) * Math.Pow(1 - rho, 2);
+            sum /= FactorialCalculator.Factorial(c) * Math.Pow(1 - rho, 2);
 
             var bracket = 1 - Math.Pow(rho, N - c) - ((N - c) * Math.Pow(rho, N - c) * (1 - rho));
 
@@ -43,7 +43,7 @@ namespace MMCNQueueParameters.src
         public double CalculatePn(double lam, double mu, int c, int N)
         {
             var sum = Math.Pow(CalculateA(lam, mu), N);
-            sum /= this._factorailizer.Factorial(c) * Math.Pow(c, N - c);
+            sum /= FactorialCalculator.Factorial(c) * Math.Pow(c, N - c);
             sum *= this.CalculatePZero(lam, mu, c, N);
 
             return sum;
@@ -58,7 +58,7 @@ namespace MMCNQueueParameters.src
             var a = CalculateA(lam, mu);
 
             for (var n = 1; n <= c; n++)
-                sum += (Math.Pow(a, n) / this._factorailizer.Factorial(n)) + (Math.Pow(a, c) / this._factorailizer.Factorial(c));
+                sum += (Math.Pow(a, n) / FactorialCalculator.Factorial(n)) + (Math.Pow(a, c) / FactorialCalculator.Factorial(c));
 
             var rho = CalculateRho(lam, mu, c);
 
@@ -76,7 +76,7 @@ namespace MMCNQueueParameters.src
             var sum = 0.0;
 
             for (var n = 0; n <= c; n++)
-                sum += (Math.Pow(a, n) / this._factorailizer.Factorial(n)) + (Math.Pow(a, c) / this._factorailizer.Factorial(c));
+                sum += (Math.Pow(a, n) / FactorialCalculator.Factorial(n)) + (Math.Pow(a, c) / FactorialCalculator.Factorial(c));
 
             var factor = 0.0;
             for (var n = 0; n < N; n++)

@@ -1,5 +1,4 @@
-﻿using MathematicalHelper;
-using MMCKKQueueParameters.src;
+﻿using MMCKKQueueParameters.src;
 using QueueingModelsInterfaces.MMCKKInterface;
 
 namespace TestQueueingModels
@@ -44,7 +43,6 @@ namespace TestQueueingModels
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
-
 
         // Lq
         [Theory]
@@ -107,7 +105,6 @@ namespace TestQueueingModels
             // Assert
             Assert.Equal(expected: expected, actual: actual, precision: 3);
         }
-
 
         // Wq
         [Theory]

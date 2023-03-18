@@ -2,12 +2,6 @@
 {
     public class FactorialCalculator
     {
-        private readonly factHelper helper;
-
-        // ctor
-        public FactorialCalculator() 
-            => this.helper = new(); 
-
         /// <summary>
         /// Calculates the factorial of a number.
         /// Factorial (denoted with a number followed by '!'), 
@@ -15,10 +9,10 @@
         /// </summary>
         /// <param name="number">Number to Factorialize.</param>
         /// <returns>Returns number factorial [number!]</returns>
-        public int Factorial(int number)
+        public static int Factorial(int number)
         {
             // Verify number can be factorialized ( 0 <= number <= 12 )
-            this.helper.validateNumber(number);
+            FactHelper.ValidateNumber(number);
 
             // 0! = 1 by definition. Assume number is at least 0 since validateNumber().
             var fact = 1;
@@ -30,7 +24,7 @@
             return fact;
         }
 
-        private class factHelper
+        private class FactHelper
         {
             /// <summary>
             /// Number validation.
@@ -38,7 +32,7 @@
             /// <param name="num">Number to validate.</param>
             /// <exception cref="InvalidDataException">num is negative.</exception>
             /// <exception cref="OverflowException">num cannot be held in datatype int.</exception>
-            public void validateNumber(int num)
+            public static void ValidateNumber(int num)
             {
                 if (num < 0)
                     // Cannot factorialize negative numbers. 
