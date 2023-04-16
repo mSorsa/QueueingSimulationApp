@@ -58,7 +58,7 @@ namespace QueueingSimulation
                 {
                     Console.Error.WriteLine("Exit application? (Y/N)");
 
-                    if (!Console.ReadLine().IsEqualIgnoreCase("Y", "YES"))
+                    if (!Console.ReadLine().Equals("Y", "YES"))
                         Environment.Exit(0);
 
                     return;

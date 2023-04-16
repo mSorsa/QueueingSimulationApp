@@ -2,7 +2,7 @@
 {
     public static class StringExtensions
     {
-        public static bool IsEqualIgnoreCase(this string str, params string[] values)
+        public static bool Equals(this string str, params string[] values)
         {
             foreach (var value in values)
             {
