@@ -11,6 +11,5 @@
         double CalculateW();
         double CalculateRho();
         double CalculateCapacityUtilization();
-
     }
 }

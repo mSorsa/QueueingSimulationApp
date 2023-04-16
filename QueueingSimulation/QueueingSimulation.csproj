@@ -7,4 +7,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MGInfinityQueueParameters\MGInfinityQueueParameters.csproj" />
+    <ProjectReference Include="..\MM1QueueParameters\MG1QueueParameters.csproj" />
+    <ProjectReference Include="..\MMCKKQueueParameters\MMCKKQueueParameters.csproj" />
+    <ProjectReference Include="..\MMCNQueueParameters\MMCNQueueParameters.csproj" />
+    <ProjectReference Include="..\MMCQueueParameters\MMCQueueParameters.csproj" />
+    <ProjectReference Include="..\QueueingModelsInterfaces\QueueingModelsInterfaces.csproj" />
+  </ItemGroup>
+
 </Project>
