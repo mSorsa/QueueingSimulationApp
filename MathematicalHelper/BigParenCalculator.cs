@@ -20,8 +20,8 @@
             if (n < 0 || x < 0)
                 throw new ArgumentException($"n and x must be positive integers. Inputted values were: x = {x}, and n = {n}.");
 
-            return FactorialCalculator.Factorial(n)
-                / (FactorialCalculator.Factorial(x) * ((double)FactorialCalculator.Factorial(n - x)));
+            return _factorializer.Factorial(n)
+                / (_factorializer.Factorial(x) * ((double)_factorializer.Factorial(n - x)));
 
         }
     }

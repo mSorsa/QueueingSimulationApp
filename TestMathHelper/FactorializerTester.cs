@@ -23,7 +23,7 @@ namespace TestMathHelper
         public void FactorialTests_Correct(int num, int expected)
         {
             // Arrange, and Act
-            var actual = FactorialCalculator.Factorial(num);
+            var actual = factorialize.Factorial(num);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -38,7 +38,8 @@ namespace TestMathHelper
         [InlineData(-10)]
         [InlineData(-1000)]
         public void FactorialTests_Invalid(int num)
-            => Assert.Throws<InvalidDataException>(() => FactorialCalculator.Factorial(num));
+            => Assert.Throws<InvalidDataException>(()
+                => factorialize.Factorial(num));
 
         [Theory]
         [InlineData(13)]
@@ -46,6 +47,7 @@ namespace TestMathHelper
         [InlineData(2365)]
         [InlineData(int.MaxValue)]
         public void FactorialTest_OutOfRange(int num)
-            => Assert.Throws<OverflowException>(() => FactorialCalculator.Factorial(num));
+            => Assert.Throws<OverflowException>(()
+                => factorialize.Factorial(num));
     }
 }

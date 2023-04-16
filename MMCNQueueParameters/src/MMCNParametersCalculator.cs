@@ -6,102 +6,96 @@ namespace MMCNQueueParameters.src
     public class MMCNParametersCalculator : IMMCN
     {
         private readonly FactorialCalculator _factorailizer;
+        private readonly double _lam;
+        private readonly double _mu;
+        private readonly int _c;
+        private readonly int _N;
 
-        public MMCNParametersCalculator(FactorialCalculator factorializer)
-            => this._factorailizer = factorializer;
-
-        public double CalculateL(double lam, double mu, int c, int N)
-            => this.CalculateLambdaE(lam, mu, c, N) * this.CalculateW(lam, mu, c, N);
-
-        public double CalculateL(double lambdaE, double w)
-            => lambdaE * w;
-
-        public double CalculateLambdaE(double lam, double mu, int c, int N)
-            => lam * (1 - this.CalculatePn(lam, mu, c, N));
-
-        public double CalculateLambdaE(double lam, double probSystemFull)
-            => lam * probSystemFull;
-
-        public double CalculateLq(double lam, double mu, int c, int N)
+        public MMCNParametersCalculator(FactorialCalculator factorializer, double lam, double mu, int c, int N)
         {
-            var rho = CalculateRho(lam, mu, c);
-            var sum = this.CalculatePZero(lam, mu, c, N) * CalculateA(lam, mu) * rho;
-
-            sum /= FactorialCalculator.Factorial(c) * Math.Pow(1 - rho, 2);
-
-            var bracket = 1 - Math.Pow(rho, N - c) - ((N - c) * Math.Pow(rho, N - c) * (1 - rho));
-
-            return sum * bracket;
+            this._factorailizer = factorializer;
+            this._c = c;
+            this._lam = lam;
+            this._mu = mu;
+            this._N = N;
         }
 
-        private static double CalculateA(double lam, double mu)
-            => Math.Round(lam / mu, 5);
-
-        public double CalculateLq(double a, int c, int N, double rho, double pZero)
-            => throw new NotImplementedException();
-
-        public double CalculatePn(double lam, double mu, int c, int N)
+        public double CalculatePZero()
         {
-            var sum = Math.Pow(CalculateA(lam, mu), N);
-            sum /= FactorialCalculator.Factorial(c) * Math.Pow(c, N - c);
-            sum *= this.CalculatePZero(lam, mu, c, N);
-
-            return sum;
+            var rho = this._lam / this._mu / this._c;
+            var offeredLoad = this._lam / this._mu;
+            double factor = 1;
+            double p0 = 1;
+            for (var i = 1; i <= this._c; i++)
+            {
+                factor *= offeredLoad / i;
+                p0 += factor;
+            }
+            if (this._c < this._N)
+            {
+                var rhosum = rho;
+                if (this._c + 1 < this._N)
+                {
+                    for (var i = this._c + 2; i <= this._N; i++)
+                    {
+                        rhosum += Math.Pow(rho, i - this._c);
+                    }
+                }
+                p0 += factor * rhosum;
+            }
+            return 1 / p0;
         }
 
-        public double CalculatePn(double a, int c, double pZero)
-            => throw new NotImplementedException();
-
-        public double CalculatePZero(double lam, double mu, int c, int N)
+        public double CalculatePN()
         {
-            var sum = 0.0;
-            var a = CalculateA(lam, mu);
+            var offeredLoad = this._lam / this._mu;
+            double cfactorial = 1;
 
-            for (var n = 1; n <= c; n++)
-                sum += (Math.Pow(a, n) / FactorialCalculator.Factorial(n)) + (Math.Pow(a, c) / FactorialCalculator.Factorial(c));
+            for (var i = 1; i <= this._c; i++)
+                cfactorial *= i;
 
-            var rho = CalculateRho(lam, mu, c);
-
-            var factor = 0.0;
-            for (var n = c + 1; n <= N; n++)
-                factor += Math.Pow(rho, n - c);
-
-            sum = 1 + (sum * factor);
-
-            return 1 / sum;
+            return Math.Pow(offeredLoad, this._N) / cfactorial / Math.Pow(this._c, this._N - this._c) * this.CalculatePZero();
         }
 
-        public double CalculatePZero(int c, int N, double a, double rho)
+        public double CalculateLambdaEffective()
+            => this._lam * (1 - this.CalculatePN());
+
+        public double CalculateL()
         {
-            var sum = 0.0;
-
-            for (var n = 0; n <= c; n++)
-                sum += (Math.Pow(a, n) / FactorialCalculator.Factorial(n)) + (Math.Pow(a, c) / FactorialCalculator.Factorial(c));
-
-            var factor = 0.0;
-            for (var n = 0; n < N; n++)
-                factor += Math.Pow(rho, n - c);
-
-            sum = (sum * factor) + 1;
-            return 1 / sum;
+            var LambdaEffective = this.CalculateLambdaEffective();
+            var w = this.CalculateW();
+            return LambdaEffective * w;
         }
 
-        private static double CalculateRho(double lam, double mu, int c)
-            => Math.Round(lam / (c * mu), 5);
+        public double CalculateLQ()
+        {
+            var rho = this._lam / this._mu / this._c;
+            var offeredLoad = this._lam / this._mu;
+            var cfactorial = (double)this._factorailizer.Factorial(this._c);
+            var p0 = this.CalculatePZero();
 
-        public double CalculateServerUtilization(double lam, double mu, int c, int N)
-            => 1 - this.CalculatePZero(lam, mu, c, N);
+            var firstPart = (p0 * Math.Pow(offeredLoad, this._c) * rho) / (cfactorial * Math.Pow((1 - rho), 2));
+            var secondPart = 1 - Math.Pow(rho, this._N - this._c) - (this._N - this._c) * Math.Pow(rho, this._N - this._c) * (1 - rho);
 
-        public double CalculateW(double lam, double mu, int c, int N)
-            => this.CalculateWq(lam, mu, c, N) + (1 / mu);
+            var lq = firstPart * secondPart;
 
-        public double CalculateW(double Wq, double mu)
-            => Wq + (1 / mu);
+            return lq;
+        }
 
-        public double CalculateWq(double lam, double mu, int c, int N)
-            => this.CalculateLq(lam, mu, c, N) / this.CalculateLambdaE(lam, mu, c, N);
+        public double CalculateWQ()
+        {
+            var lambdaEffective = this.CalculateLambdaEffective();
+            return this.CalculateLQ() / lambdaEffective;
+        }
 
-        public double CalculateWq(double Lq, double lambdaE)
-            => Lq / lambdaE;
+
+        public double CalculateW()
+            => this.CalculateWQ() + (1 / this._mu);
+
+        public double CalculateRho()
+            => this._lam / this._mu / this._c;
+
+        public double CalculateCapacityUtilization()
+            => this.CalculateLambdaEffective() / this._c / this._mu;
     }
 }

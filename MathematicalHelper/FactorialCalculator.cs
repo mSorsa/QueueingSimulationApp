@@ -9,7 +9,7 @@
         /// </summary>
         /// <param name="number">Number to Factorialize.</param>
         /// <returns>Returns number factorial [number!]</returns>
-        public static int Factorial(int number)
+        public int Factorial(int number)
         {
             // Verify number can be factorialized ( 0 <= number <= 12 )
             FactHelper.ValidateNumber(number);

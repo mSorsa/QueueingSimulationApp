@@ -46,8 +46,8 @@ namespace MMCKKQueueParameters.src
                         * Math.Pow(this._lam / this._mu, n);
 
             for (var n = this._c; n <= this._K; n++)
-                sum += FactorialCalculator.Factorial(this._K) / (FactorialCalculator.Factorial(this._K - n)
-                        * FactorialCalculator.Factorial(this._c) * Math.Pow(this._c, n - this._c))
+                sum += _factorializer.Factorial(this._K) / (_factorializer.Factorial(this._K - n)
+                        * _factorializer.Factorial(this._c) * Math.Pow(this._c, n - this._c))
                         * Math.Pow(this._lam / this._mu, n);
 
             return Math.Pow(sum, -1);
@@ -70,8 +70,8 @@ namespace MMCKKQueueParameters.src
                         * Math.Pow(this._lam / this._mu, n)
                         * this.CalculatePZero()
                 : n >= this._c && n <= this._K
-                    ? FactorialCalculator.Factorial(this._K)
-                        / (FactorialCalculator.Factorial(this._K - n) * FactorialCalculator.Factorial(this._c)
+                    ? _factorializer.Factorial(this._K)
+                        / (_factorializer.Factorial(this._K - n) * _factorializer.Factorial(this._c)
                             * Math.Pow(this._c, n - this._c))
                         * Math.Pow(this._lam / this._mu, n)
                         * this.CalculatePZero()

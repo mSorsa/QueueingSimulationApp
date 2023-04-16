@@ -7,7 +7,7 @@ namespace MGInfinityQueueParameters.src
     {
         private readonly FactorialCalculator _calculator;
 
-        public MGInfinityParametersCalculator(FactorialCalculator? factorialCalculator) 
+        public MGInfinityParametersCalculator(FactorialCalculator? factorialCalculator)
             => this._calculator = factorialCalculator ?? new();
 
         public double CalculatePZero(double lambda, double mu)
@@ -50,7 +50,7 @@ namespace MGInfinityQueueParameters.src
             muCheck(mu);
 
             var top = Math.Pow(Math.E, -lambda / mu) * Math.Pow(lambda / mu, n);
-            double bottom = FactorialCalculator.Factorial(n);
+            double bottom = this._calculator.Factorial(n);
 
             return top / bottom;
         }
